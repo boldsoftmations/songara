@@ -16,7 +16,7 @@ const Auth = () => {
       <div className={styles["forms-container"]}>
         <div className={styles["signin-signup"]}>
           <form className={`${styles["sign-in-form"]} ${isSignup ? styles.hide : ""}`}>
-          <h1>Login</h1>
+          <h1>Signin</h1>
             <CustomInput
               label="Username"
               type="text"
@@ -27,7 +27,7 @@ const Auth = () => {
               type="password"
               placeholder="Enter your Password"
             />
-            <CustomButton label="Go to Signup" onClick={toggleSignup} />
+            <CustomButton label="Sign in" />
           </form>
           <form className={`${styles["sign-up-form"]} ${isSignup ? "" : styles.hide}`}>
           <h1>Signup</h1>
@@ -46,7 +46,7 @@ const Auth = () => {
               type="password"
               placeholder="Confirm your Password"
             />
-            <CustomButton label="Go to Login" onClick={toggleSignup} />
+            <CustomButton label="Sign up" />
           </form>
         </div>
       </div>
