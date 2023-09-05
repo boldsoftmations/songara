@@ -11,7 +11,7 @@ const Routers = () => {
       // Simulate an API call to get the token
       // Replace this with your actual API call
       const fetchToken = async () => {
-        const fakeToken = "23432543563"; // Fetch this from your API
+        const fakeToken = ""; // Fetch this from your API
         setToken(fakeToken);
       };
   
