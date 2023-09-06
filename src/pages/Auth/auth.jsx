@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styles from "./auth.module.css"; // Import as a module
-import CustomInput from "../../components/Inputs/CustomInput";
-import CustomButton from "../../components/Button/CustomButton";
-import LogSvg from '../../assets/images/log.svg'
-import RegisterSvg from '../../assets/images/register.svg'
+import LogSvg from "../../assets/images/log.svg";
+import RegisterSvg from "../../assets/images/register.svg";
+import Signup from "./../Signup/signup";
+import SignIn from "./../Login/login";
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
 
@@ -12,41 +12,26 @@ const Auth = () => {
   };
 
   return (
-    <div className={`${styles.container} ${isSignup ? styles["sign-up-mode"] : ""}`}>
+    <div
+      className={`${styles.container} ${
+        isSignup ? styles["sign-up-mode"] : ""
+      }`}
+    >
       <div className={styles["forms-container"]}>
         <div className={styles["signin-signup"]}>
-          <form className={`${styles["sign-in-form"]} ${isSignup ? styles.hide : ""}`}>
-          <h1>Login</h1>
-            <CustomInput
-              label="Username"
-              type="text"
-              placeholder="Enter your username"
-            />
-            <CustomInput
-              label="Password"
-              type="password"
-              placeholder="Enter your Password"
-            />
-            <CustomButton label="Go to Signup" onClick={toggleSignup} />
+          <form
+            className={`${styles["sign-in-form"]} ${
+              isSignup ? styles.hide : ""
+            }`}
+          >
+            <SignIn />
           </form>
-          <form className={`${styles["sign-up-form"]} ${isSignup ? "" : styles.hide}`}>
-          <h1>Signup</h1>
-            <CustomInput
-              label="Username"
-              type="text"
-              placeholder="Enter your username"
-            />
-            <CustomInput
-              label="Password"
-              type="password"
-              placeholder="Enter your Password"
-            />
-            <CustomInput
-              label="Confirm Password"
-              type="password"
-              placeholder="Confirm your Password"
-            />
-            <CustomButton label="Go to Login" onClick={toggleSignup} />
+          <form
+            className={`${styles["sign-up-form"]} ${
+              isSignup ? "" : styles.hide
+            }`}
+          >
+            <Signup />
           </form>
         </div>
       </div>
@@ -58,7 +43,10 @@ const Auth = () => {
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
               ex ratione. Aliquid!
             </p>
-            <button className={`${styles.btn} ${styles.transparent}`} onClick={toggleSignup}>
+            <button
+              className={`${styles.btn} ${styles.transparent}`}
+              onClick={toggleSignup}
+            >
               Sign up
             </button>
           </div>
@@ -71,7 +59,10 @@ const Auth = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
               laboriosam ad deleniti.
             </p>
-            <button className={`${styles.btn} ${styles.transparent}`} onClick={toggleSignup}>
+            <button
+              className={`${styles.btn} ${styles.transparent}`}
+              onClick={toggleSignup}
+            >
               Sign in
             </button>
           </div>
