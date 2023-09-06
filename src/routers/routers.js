@@ -4,27 +4,26 @@ import Auth from "./../pages/Auth/auth";
 import Home from "./../pages/Home/home";
 
 const Routers = () => {
-    const [token, setToken] = useState(null);
-    const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+  const navigate = useNavigate();
   
-    useEffect(() => {
-      // Simulate an API call to get the token
-      // Replace this with your actual API call
-      const fetchToken = async () => {
-        const fakeToken = ""; // Fetch this from your API
-        setToken(fakeToken);
-      };
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    const tokenFromStorage = localStorage.getItem("token");
+    if (tokenFromStorage) {
+      navigate("/home");
+    } else {
+      navigate("/");
+    }
+  }, [navigate]);
   
-      fetchToken();
-    }, []);
   
-    useEffect(() => {
-      if (token) {
-        navigate("/home");
-      } else {
-        navigate("/");
-      }
-    }, [token, navigate]);
 
 
 console.log("token is",token);
