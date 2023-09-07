@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
 
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+const Sidebar = ({ collapsed }) => {
 
   return (
     <div className={`${styles.sidebar} ${collapsed ? styles.collapsed : ""}`}>
-      <button
-        className={styles.toggleButton}
-        onClick={() => setCollapsed(!collapsed)}
-      >
-        Toggle
-      </button>
       <ul className={styles.menu}>
         <li className={styles.menuItem}>
           <span className={styles.icon}>🏠</span>
