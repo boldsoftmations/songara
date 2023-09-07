@@ -1,22 +1,13 @@
-import { refreshToken } from "../Redux/Action/Action";
 import CustomAxios from "./api";
-import {
-  getLocalAccessToken,
-  getLocalRefreshToken,
-  removeUser,
-  updateLocalAccessToken,
-} from "./TokenService";
 
-const SetupInterceptor = (store) => {
+const SetupInterceptor = () => {
   CustomAxios.interceptors.request.use(
     (config) => {
-      const token = getLocalAccessToken();
-      // config.baseURL = process.env.REACT_APP_DEPLOY_BACKEND_URL;
-      if (token) {
+      const accessToken = localStorage.getItem('accessToken'); // Get the access token from localStorage
+      if (accessToken) {
         config.headers = {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
           Accept: "application/json",
-          // "Content-Type": "multipart/form-data",
         };
       }
       return config;
@@ -25,45 +16,39 @@ const SetupInterceptor = (store) => {
       return Promise.reject(error);
     }
   );
-  const { dispatch } = store;
 
   CustomAxios.interceptors.response.use(
     (res) => {
       return res;
     },
     async (err) => {
-      console.log("err respoanse :>> ", err);
-      if (err.response.data.code === "token_not_valid") {
-        removeUser();
-        window.location.reload(); // refresh page to redirect user to login screen
-      }
+      console.log("err response :>> ", err);
       const originalConfig = err.config;
 
       if (err.response) {
+        // Token is not valid
+        if (err.response.data.code === "token_not_valid") {
+          localStorage.removeItem('accessToken'); // Remove access token from localStorage
+          localStorage.removeItem('refreshToken'); // Remove refresh token from localStorage
+          window.location.reload(); // Refresh page to redirect user to login screen
+        }
+
         // Access Token was expired
         if (err.response.status === 401 && !originalConfig._retry) {
           originalConfig._retry = true;
 
           try {
             const rs = await CustomAxios.post("/api/token/refresh/", {
-              refresh: getLocalRefreshToken(),
+              refresh: localStorage.getItem('refreshToken'), // Get the refresh token from localStorage
             });
 
-            const accessToken = rs.data.access;
+            const newAccessToken = rs.data.access;
             if (rs.status === 200) {
-              dispatch(refreshToken(accessToken));
-              updateLocalAccessToken(accessToken);
-              CustomAxios.defaults.headers.common[
-                "Authorization"
-              ] = `Bearer ${accessToken.access}`;
-
+              localStorage.setItem('accessToken', newAccessToken); // Update access token in localStorage
+              originalConfig.headers.Authorization = `Bearer ${newAccessToken}`;
               return CustomAxios(originalConfig);
             }
           } catch (_error) {
-            if (_error.response && _error.response.data) {
-              return Promise.reject(_error.response.data);
-            }
-
             return Promise.reject(_error);
           }
         }
