@@ -20,15 +20,15 @@ const Login = () => {
         password: user.password,
       };
       const response = await axios.post(LOGIN_URL, req);
-      if (response.data && response.data.token && response.data.token.access) {
-        localStorage.setItem("token", response.data.token.access);
-        navigate("/home");
-      }
+      const { access, refresh } = response.data.token;
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
+      navigate("/home");
     } catch (err) {
       console.log("Error occurred: ", err);
     }
   };
-  
+
   return (
     <>
       <h1>Signin</h1>
