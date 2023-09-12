@@ -1,54 +1,46 @@
 import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
-
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter } from "react-pro-sidebar";
+import "react-pro-sidebar/dist/css/styles.css";
+import {  FaSignOutAlt, FaProductHunt, FaUsers, FaFolderOpen, FaUserCircle, FaTemperatureHigh } from 'react-icons/fa';
+import { IoMdSwitch } from 'react-icons/io';
+import { BsFillMoonFill,BsFillSunFill} from 'react-icons/bs';
+import { BiSolidDashboard } from 'react-icons/bi';
+const Layout = ({ openSidebarToggle, OpenSidebar, theme, toggleTheme }) => {
 
   return (
-    <div className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
-      <button className={styles.toggleButton} onClick={() => setCollapsed(!collapsed)}>
-        Toggle
-      </button>
-      <ul className={styles.menu}>
-        <li className={styles.menuItem}>
-          <span className={styles.icon}>🏠</span>
-          <span className={`${styles.text} ${collapsed ? styles.hide : ''}`}>Home</span>
-        </li>
-        <li className={styles.menuItem}>
-          <span className={styles.icon}>📦</span>
-          <span className={`${styles.text} ${collapsed ? styles.hide : ''}`}>Product</span>
-          <ul className={`${styles.subMenu} ${collapsed ? styles.hide : ''}`}>
-            <li>HSN Code</li>
-            <li>Description</li>
-            <li>Product Segment</li>
-          </ul>
-        </li>
-        <li className={styles.menuItem}>
-          <span className={styles.icon}>📈</span>
-          <span className={`${styles.text} ${collapsed ? styles.hide : ''}`}>Leads</span>
-          <ul className={`${styles.subMenu} ${collapsed ? styles.hide : ''}`}>
-            <li>New Leads</li>
-            <li>Open Leads</li>
-            <li>Dropped Lead</li>
-            <li>Hot Lead</li>
-            <li>Unassigned Lead</li>
-          </ul>
-        </li>
-        <li className={styles.menuItem}>
-          <span className={styles.icon}>👥</span>
-          <span className={`${styles.text} ${collapsed ? styles.hide : ''}`}>Customer</span>
-          <ul className={`${styles.subMenu} ${collapsed ? styles.hide : ''}`}>
-            <li>Customer</li>
-            <li>Unassigned Customer</li>
-          </ul>
-        </li>
-        <li className={styles.menuItem}>
-          <span className={styles.icon}>📞</span>
-          <span className={`${styles.text} ${collapsed ? styles.hide : ''}`}>Followup</span>
-        </li>
-      </ul>
+    <div className={styles.sidebarContainer}>
+      <ProSidebar collapsed={openSidebarToggle} theme={theme === 'light' ? styles.light : styles.dark} style={{ height: '100vh' }}>
+    
+        <Menu iconShape="square">
+          <MenuItem icon={<BiSolidDashboard />}>Dashboard</MenuItem>
+          <SubMenu title="Products" icon={<FaProductHunt />}>
+            <MenuItem>HSN Code</MenuItem>
+            <MenuItem>Description</MenuItem>
+            <MenuItem>Product Segment</MenuItem>
+          </SubMenu>
+          <SubMenu title="Leads" icon={<FaFolderOpen />}>
+            <MenuItem>New</MenuItem>
+            <MenuItem>Opened</MenuItem>
+            <MenuItem>Dropped</MenuItem>
+            <MenuItem>Hot</MenuItem>
+            <MenuItem>Unassigned</MenuItem>
+          </SubMenu>
+          <SubMenu title="Customer" icon={<FaUsers />}>
+            <MenuItem>Customer</MenuItem>
+            <MenuItem>Unassigned Customer</MenuItem>
+          </SubMenu>
+          <MenuItem icon={<FaTemperatureHigh />}>Followup</MenuItem>
+          <MenuItem icon={theme === 'light' ? <BsFillMoonFill /> : <BsFillSunFill />} onClick={toggleTheme}>
+            Switch Theme
+          </MenuItem>
+          <MenuItem icon={<FaSignOutAlt />} >
+        Logout
+          </MenuItem>
+        </Menu>
+      </ProSidebar>
     </div>
   );
-};
+}
 
-export default Sidebar;
+export default Layout;

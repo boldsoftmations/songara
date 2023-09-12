@@ -4,33 +4,38 @@ import CustomButton from "../../components/Button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({setOpen}) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
     showPassword: false,
   });
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setOpen(true);
       const req = {
         email: user.email,
         password: user.password,
       };
       const response = await axios.post(LOGIN_URL, req);
-      if (response.data && response.data.token && response.data.token.access) {
-        localStorage.setItem("token", response.data.token.access);
-        navigate("/home");
-      }
+      const { access, refresh } = response.data.token;
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
+      navigate("/home");
+      setOpen(false);
     } catch (err) {
       console.log("Error occurred: ", err);
+      setOpen(false);
     }
   };
-  
+
   return (
     <>
+  
       <h1>Signin</h1>
       <CustomInput
         label="Username"

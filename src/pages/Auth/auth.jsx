@@ -4,8 +4,10 @@ import LogSvg from "../../assets/images/log.svg";
 import RegisterSvg from "../../assets/images/register.svg";
 import Signup from "./../Signup/signup";
 import SignIn from "./../Login/login";
+import Spinner from "../../components/Spinner/Spinner";
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
+  const [open , setOpen ] = useState(false);
 
   const toggleSignup = () => {
     setIsSignup((prev) => !prev);
@@ -17,6 +19,7 @@ const Auth = () => {
         isSignup ? styles["sign-up-mode"] : ""
       }`}
     >
+        {open && <Spinner />}
       <div className={styles["forms-container"]}>
         <div className={styles["signin-signup"]}>
           <form
@@ -24,7 +27,7 @@ const Auth = () => {
               isSignup ? styles.hide : ""
             }`}
           >
-            <SignIn />
+            <SignIn setOpen={setOpen}/>
           </form>
           <form
             className={`${styles["sign-up-form"]} ${
