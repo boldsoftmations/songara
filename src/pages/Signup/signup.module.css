@@ -1,0 +1,74 @@
+.signup-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .signup-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-row {
+    margin-bottom: 15px;
+  }
+  
+  .input-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-row input[type="text"],
+  .input-row input[type="email"],
+  .input-row input[type="tel"],
+  .input-row input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  
+  
+  .input-row input[type="text"]:focus,
+  .input-row input[type="email"]:focus,
+  .input-row input[type="tel"]:focus,
+  .input-row input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .input-row div {
+    display: flex;
+    gap: 10px;
+  }
+  
+ 
+  .signup-button {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .signup-button button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  
+  .signup-button button:hover {
+    background-color: #0056b3;
+    color: #fff; 
+    border-color: #0056b3; 
+  }
+  
+  
