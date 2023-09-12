@@ -1,31 +1,25 @@
-import React, { useState } from 'react';
-import styles from './Header.module.css';
-import Sidebar from './../Sidebar/Sidebar';
+import React from 'react';
+import { FiMenu } from 'react-icons/fi';
+import { BsFillBellFill, BsFillEnvelopeFill, BsPersonCircle } from 'react-icons/bs';
+import styles from './Header.module.css'; // Import the CSS module
 
-const Header = () => {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const headerStyles = {
-    marginLeft: collapsed ? "60px" : "250px",
-    transition: "margin-left 0.2s ease"
-  }
+function Header({ OpenSidebar, accessToken }) {
   return (
-    <div className={styles.headerContainer}>
-    <Sidebar collapsed={collapsed} />
-    <div className={styles.header} style={headerStyles}>
-      {/* Hamburger Icon */}
-      <div className={styles.hamburgerIcon} onClick={() => setCollapsed(!collapsed)}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 12H21" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M3 6H21" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M3 18H21" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        </div>
-        <h3>Songara International LLP</h3>
-      </div>
-    </div>
-  );
-};
+    <header className={styles.header}>
+        <div className={styles.menuIcon}>
+        <FiMenu className={styles.icon} onClick={OpenSidebar} />
+      </div> 
 
+      <div className={styles.headerText}>
+        SONGARA International LLP
+      </div>
+      <div className={styles.headerRight}>
+        <BsFillBellFill className={styles.icon} />
+        <BsFillEnvelopeFill className={styles.icon} />
+        <BsPersonCircle className={styles.icon} />
+      </div>
+    </header>
+  )
+}
 
 export default Header;
