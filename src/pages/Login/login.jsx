@@ -4,7 +4,7 @@ import CustomButton from "../../components/Button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
+const Login = ({setOpen}) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -15,6 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setOpen(true);
       const req = {
         email: user.email,
         password: user.password,
@@ -24,13 +25,16 @@ const Login = () => {
       localStorage.setItem("accessToken", access);
       localStorage.setItem("refreshToken", refresh);
       navigate("/home");
+      setOpen(false);
     } catch (err) {
       console.log("Error occurred: ", err);
+      setOpen(false);
     }
   };
 
   return (
     <>
+  
       <h1>Signin</h1>
       <CustomInput
         label="Username"

@@ -16,7 +16,6 @@ const Routers = () => {
     }
   }, [token, navigate]);
 
-  console.log("token is", token);
 
   return (
     <Routes>
